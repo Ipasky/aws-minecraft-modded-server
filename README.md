@@ -65,27 +65,19 @@ The resources we’re going to use are:
 
 
 ### On-Demand vs Spot Instance
-First of all, let’s discuss which purchase model you should choose for your instance.
-
-You have to decide whether you want to use an **On-Demand** or a **Spot Instance**.  
-The difference between them is the following:
+First of all, let’s discuss which purchase model you should choose for your instance. You have to decide whether you want to use an **On-Demand** or a **Spot Instance**. The difference between them is the following:
 
 - **On-Demand Instances** are for applications that **cannot be interrupted**. You can run the server 24/7 without any problems. Additionally, On-Demand instances allow you to **start and stop the instance whenever you want**, so you have **full control** over your server and usage.
 
 - **Spot Instances**, on the other hand, let you **take advantage of unused EC2 capacity** at a much lower price. However, AWS can **shut down your instance at any time** if that capacity is needed elsewhere — you'll receive a 2-minute warning before it's terminated.  
   The downside is that **you can’t start or stop Spot Instances manually** unless you set up complex automation. They're more suited for services that run continuously, like a 24h/day server without manual control.
 
-In our case, we decided to go with **On-Demand Instances**.  
-Even though Spot Instances are significantly cheaper, for example, for a `t3.2xlarge` instance we would pay **$0.3328/hour On-Demand** vs **$0.0966/hour Spot**:
+In our case, we decided to go with **On-Demand Instances**. Even though Spot Instances are significantly cheaper, for example a `t3.2xlarge` instance we would pay **$0.3328/hour On-Demand** vs **$0.0966/hour Spot** I prefer having **full control over the server's active hours**.  
 
 | ![Image 1](img/image-1.png) | ![Image 2](img/image-2.png) |
 |-----------------------------|-----------------------------|
 
-I prefer having **full control over the server's active hours**.  
-
-We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time.
-
-If you prefer to have the server available 24/7 and want to save money, **Spot Instances** might be a better fit.  
+We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time. If you prefer to have the server available 24/7 and want to save money, **Spot Instances** might be a better fit.  
 It really depends on your group’s **play style, schedule, and budget**.
 
 
@@ -192,5 +184,20 @@ Just make sure that when you run the command:
 
 
 ### Java Installation
+Its crucial for minecraft that a java version was installed previously, for accomplish that here are the steps:
+
+```bash
+sudo yum install java-17-amazon-corretto -y
+java -version
+```
+![alt text](img/image-13.png)
+
+
+![alt text](img/image-12.png)
+```bash
+mkdir MCServer && cd MCServer
+java -jar forge-1.20.1-47.2.20-installer.jar --installServer
+```
+
 
 ### Minecraft forge server installation
