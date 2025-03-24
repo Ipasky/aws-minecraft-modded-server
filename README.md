@@ -50,7 +50,8 @@ If you're planning to play with 200 mods and multiple players, you should pick a
 We’ll discuss and compare the different options in the next section.
 
 AWS offers an incredible number of services. For this project, we are going to use **EC2 instances** to host our Minecraft server.  
-EC2 has a whole ecosystem around it, starting with the dashboard:  
+EC2 has a whole ecosystem around it, starting with the dashboard: 
+
 ![alt text](img/image.png)
 
 The resources we’re going to use are:  
@@ -60,7 +61,7 @@ The resources we’re going to use are:
 - **Security Groups**
 
 > [!NOTE]
-> I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Thank you.
+> I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Additionaly I erased all the sensible data for my privacy, dont be surprised if in an image is missing certain data. Thank you.
 
 
 ### On-Demand vs Spot Instance
@@ -75,8 +76,12 @@ The difference between them is the following:
   The downside is that **you can’t start or stop Spot Instances manually** unless you set up complex automation. They're more suited for services that run continuously, like a 24h/day server without manual control.
 
 In our case, we decided to go with **On-Demand Instances**.  
-Even though Spot Instances are significantly cheaper (for example, for a `t3.2xlarge` instance we would pay **$0.3328/hour On-Demand** vs **$0.0966/hour Spot**:  
-![alt text](img/image-1.png) and ![alt text](img/image-2.png)), I prefer having **full control over the server's active hours**.  
+Even though Spot Instances are significantly cheaper, for example, for a `t3.2xlarge` instance we would pay **$0.3328/hour On-Demand** vs **$0.0966/hour Spot**:
+
+| ![Image 1](img/image-1.png) | ![Image 2](img/image-2.png) |
+|-----------------------------|-----------------------------|
+
+I prefer having **full control over the server's active hours**.  
 
 We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time.
 
