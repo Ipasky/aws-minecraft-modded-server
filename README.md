@@ -51,7 +51,7 @@ We’ll discuss and compare the different options in the next section.
 
 AWS offers an incredible number of services. For this project, we are going to use **EC2 instances** to host our Minecraft server.  
 EC2 has a whole ecosystem around it, starting with the dashboard:  
-![alt text](image.png)
+![alt text](img/image.png)
 
 The resources we’re going to use are:  
 - **Instances**  
@@ -76,7 +76,7 @@ The difference between them is the following:
 
 In our case, we decided to go with **On-Demand Instances**.  
 Even though Spot Instances are significantly cheaper (for example, for a `t3.2xlarge` instance we would pay **$0.3328/hour On-Demand** vs **$0.0966/hour Spot**:  
-![alt text](image-1.png) and ![alt text](image-2.png)), I prefer having **full control over the server's active hours**.  
+![alt text](img/image-1.png) and ![alt text](img/image-2.png)), I prefer having **full control over the server's active hours**.  
 
 We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time.
 
@@ -84,27 +84,108 @@ If you prefer to have the server available 24/7 and want to save money, **Spot I
 It really depends on your group’s **play style, schedule, and budget**.
 
 
-### Choosing Instance type
-Second you need to decide what instance type it fits more with your server. In my experience for a server about a 100 mods with 2-4 people playing simultaneously a t3.xlarge is enough. Also for a small servers t3.large or t3.medium will be perfect for the prupose (and more cheap). One advantage of this services is, if you try one instance type and isnt enought powerfull, you only pay for the hours of testing. It will be easy to set-up another instance with more capabilities.
+### Choosing an Instance Type
+Next, you need to decide which instance type best fits your server needs.  
+From my experience, for a server with around **100 mods** and **2–4 players playing at the same time**, a `t3.xlarge` is usually enough.  
+For smaller servers, `t3.large` or even `t3.medium` will work perfectly and are more affordable.
 
-In our case we are going to use a 8 CPU and 32GiB ram spot instance, that because in previous servers we tested the t3.xlarge with 4 CPU and 16GiB ram, and we see that it wasn't enought power to run all the mods and the players. This time we doubled the specs because we have more than 100 mods and about 5-10 players.
+One great advantage of using EC2 is that **you only pay for the hours you use**.  
+So if you try one instance type and it’s not powerful enough, it’s easy to stop it and set up another one with better specs — without wasting much money.
 
-### Spot Instance set-up
-In the EC2 panel you should go to your left vertical panel in the section Instances and go Spot Requests ![alt text](image-3.png). Then click on Create Spot Fleet Request and select the Manually configure launch parameters option. ![alt text](image-5.png)
-Next we are going to select a Amazon Linux 2 AMI Kernel 5.10 version, the AMI are the template that it will be installed in our server, for our purpose a clean Linux version is enough. Additionaly we need to specify a Key pair name to save localy the key for stablish a remote SSH connection. Here you just click on create new key pair and put the name you want. In my case how i want to connect via MobaXterm i'm going to select the key in (.pem) format and download it localy. ![alt text](image-4.png)
+In our case, we’re going to use a `t3.2xlarge` instance, which provides **8 vCPUs and 32 GiB of RAM**.  
+This is because in previous servers, we tested a `t3.xlarge` (4 vCPUs and 16 GiB RAM), and we noticed that it wasn’t powerful enough to handle all the mods and the players smoothly.  
 
-Also in "Additional launch parameters" we are going to put in EBS Volumes 20GiB instead of the 8GiB that comes default. ![alt text](image-7.png) That will increase a bit the cost, aproximate 2$/month but its esencialy for set up a server. In your case if you are not using more than 20 mods and you are not going to explore a lot in your world go with the 8GiB option. But in our case the last server weigh about 10GiB (all the server, including mods, map exploration and other resources). I dont want to change this in the middle of the server.
+This time, we’ve decided to **double the specs** since we’re running **more than 100 mods** and expect **5–10 players**.
 
-Morover, here we should create a Security Group, thats acts like a firewall, we need to specify that all the IP's v4 going inbound to port 25565 (minecraft default port) are alowed to TCP and UDP. Additionally for use SSH remote, you need to put your public IP from the computer you are going to connect via SSH and allow the inbound connections.
-![alt text](image-6.png)
 
-Then you should put at least 3 instance types that are similar in capabilityes. In our case we putted "m7i.2xlarge, m6a.2xlarge, t3a.2xlarge, t3.2xlarge" that are all 8 CPU and 32GiB ram and have a similar price. ![alt text](image-8.png)
+### Instance Set-Up
+In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel:  
+![alt text](img/image-3.png)
+
+Click on **“Launch Instances”** to begin the configuration process for your server.
+
+---
+
+#### 1. Name your instance
+Start by giving your instance a name — in our case, we’ll name it **MCServer_AWS**.
+
+---
+
+#### 2. Choose an AMI (Amazon Machine Image)
+Next, select an **AMI**, which is the template for the operating system that will be installed on your server.  
+For our purpose, a clean Linux distribution is enough — we’ll use **Amazon Linux 2023 AMI**.
+
+Make sure the **architecture** is set to **64-bit (x86)**:  
+![alt text](img/image-5.png)
+
+---
+
+#### 3. Choose instance type
+Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, which offers 8 vCPUs and 32 GiB RAM.
+
+---
+
+#### 4. Create a key pair
+You’ll need a key pair to connect to your server via SSH.
+
+Click on **“Create new key pair”**, give it a name, and choose the **.pem** format (required for MobaXterm or similar SSH tools).  
+Download the key to your computer and **store it safely**, as you’ll need it every time you connect to the instance:  
+![alt text](img/image-4.png)
+
+---
+
+#### 5. Set up the security group
+The **security group** acts like a firewall and controls who can access your server.
+
+Go to the **EC2 Dashboard**, scroll to the **“Network & Security”** section on the left, and open **Security Groups**.  
+Click on **“Create security group”**:  
+![alt text](img/image-7.png)
+
+You’ll need to add the following **inbound rules**:
+
+- **Allow TCP and UDP traffic** on port **25565** from **any IPv4 address** (`0.0.0.0/0`) — this is the default port for Minecraft.
+- **Allow SSH (TCP port 22)** only from your current **public IP address** — this is required to connect to the server via terminal (SSH).  
+  You can find your public IP at [whatismyip.com](https://www.whatismyip.com).  
+  ![alt text](img/image-8.png)
+
+Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
+
+---
+
+#### 6. Configure storage
+Under the **"Configure Storage"** section, change the root volume size from **8 GiB to 20 GiB**.
+
+While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup.  
+If your world is small and you’re only using ~20 mods, 8 GiB may be enough.  
+However, in our case, the previous server folder reached **10 GiB**, including the map, mods, and other files — and we don’t want to run out of space mid-way through the server.
+
+![alt text](img/image-6.png)
+
+---
+
+Once all this is configured, you can launch your instance and move on to the next steps: installing Java, setting up the Minecraft server files, and opening the world!
+
 
 ### Connect via SSH
-With you request done you need to wait a few minutes to set-up the instance, then if you go to your instances you should see the new service running. ![alt text](image-9.png) Select the instance and click on Connect top bar button, here it will apear in the SSH client the sentence to connect via mobaxterm using the (.pem) file that previosly we download ![alt text](image-10.png) Copy the example sentence and go to MobaXterm or other SSH terminal in your local computer. Paste it and voila! you are into your machine. Make shure, when you paste the sentence, you are in the same directory as your (.pem) file or specify where is the file in your computer. ![alt text](image-11.png)
+After launching the instance, wait a few minutes for it to finish setting up.  
+Once it’s ready, go to the **Instances** section and you should see your new server running:  
+![alt text](img/image-9.png)
+
+Select the instance and click on the **"Connect"** button in the top bar.  
+In the **SSH client** section, AWS will show you an example command to connect via SSH using the `.pem` key file you downloaded earlier:  
+![alt text](img/image-10.png)
+
+Copy that command and open **MobaXterm** (or any other SSH terminal) on your local machine.  
+Paste the command into the terminal and voilà — you're in!
+
+![alt text](img/image-11.png)
+
+Just make sure that when you run the command:
+- You are **in the same folder as your `.pem` file**,  
+  **OR**  
+- You specify the **full path** to the `.pem` file in the command.
+
 
 ### Java Installation
-
-FartLansBBK25K_MCServer
 
 ### Minecraft forge server installation
