@@ -1,44 +1,20 @@
-# aws_minecraft_forge_server
-AWS EC2 Minecraft Forge server
+# AWS EC2 for setting up a private Minecraft moded (Forge) server
 
 ## Introduction
 This repository is a guide for everyone who wants to set up their private Minecraft Forge server. We are going to use AWS EC2 to host the server.
 
-![](https://github.com/Ipasky/home-hpc)
+## Index
+- [Game version and mod list](#Game-Version-and-Mod-List)
+- [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
+- [Choosing an Instance Type](#Choosing-an-Instance-Type)
+- [Instance Set-Up](#Instance-Set-Up)
+- [Connect via SSH](#Connect-via-SSH)
+- [Java and Forge Installation](#Java-and-Forge-Installation)
+- [Minecraft Forge server installation and configuration](#Minecraft-forge-server-installation-and-configuration)
+- [Playing and testing the server](#Playing-and-testing-the-server)
+<br></br>
 
-## [Slurm](https://www.elastic.co)
-
-> [!WARNING]
-> Warning test
-
-> [!NOTE]
-> Note test
-
-In the node master you must do the next configuration to have plenty acces to the other nodes
-```shell
-ssh-keygen -t rsa
-ssh-copy-id root@node01
-ssh-copy-id root@node02
-```
-
-```shell
-sudo apt update
-sudo apt install -y slurm-wlm munge
-sudo systemctl enable munge
-sudo systemctl start munge
-sudo systemctl status munge
-```
-We need to do the same for each node, in my case since i have Alma Linux in the other nodes i need to do:
-```shell
-sudo dnf update
-sudo apt install -y slurm-wlm munge
-sudo systemctl enable munge
-sudo systemctl start munge
-sudo systemctl status munge
-```
-![](https://github.com/Ipasky/home-hpc/img/img_01.jpg)
-
-## AWS EC2 Tutorial
+## Setting up Guide
 ### Game Version and Mod List
 The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available.
 
@@ -183,7 +159,7 @@ Just make sure that when you run the command:
 - You specify the **full path** to the `.pem` file in the command.
 
 
-### Java Installation
+### Java and Forge Installation
 Its crucial for minecraft that a java version was installed previously, for accomplish that here are the steps:
 
 ```bash
@@ -200,4 +176,6 @@ java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 ```
 
 
-### Minecraft forge server installation
+### Minecraft forge server installation and configuration
+
+### Playing and testing the server
