@@ -39,7 +39,7 @@ The resources we’re going to use are:
 > [!NOTE]
 > I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Additionaly I erased all the sensible data for my privacy, dont be surprised if in an image is missing certain data. Thank you.
 
-
+<br></br>
 ### On-Demand vs Spot Instance
 First of all, let’s discuss which purchase model you should choose for your instance. You have to decide whether you want to use an **On-Demand** or a **Spot Instance**. The difference between them is the following:
 
@@ -56,7 +56,7 @@ In our case, we decided to go with **On-Demand Instances**. Even though Spot Ins
 We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time. If you prefer to have the server available 24/7 and want to save money, **Spot Instances** might be a better fit.  
 It really depends on your group’s **play style, schedule, and budget**.
 
-
+<br></br>
 ### Choosing an Instance Type
 Next, you need to decide which instance type best fits your server needs.  
 From my experience, for a server with around **100 mods** and **2–4 players playing at the same time**, a `t3.xlarge` is usually enough.  
@@ -70,7 +70,7 @@ This is because in previous servers, we tested a `t3.xlarge` (4 vCPUs and 16 GiB
 
 This time, we’ve decided to **double the specs** since we’re running **more than 100 mods** and expect **5–10 players**.
 
-
+<br></br>
 ### Instance Set-Up
 In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel:  
 ![alt text](img/image-3.png)
@@ -138,7 +138,7 @@ However, in our case, the previous server folder reached **10 GiB**, including t
 
 Once all this is configured, you can launch your instance and move on to the next steps: installing Java, setting up the Minecraft server files, and opening the world!
 
-
+<br></br>
 ### Connect via SSH
 After launching the instance, wait a few minutes for it to finish setting up.  
 Once it’s ready, go to the **Instances** section and you should see your new server running:  
@@ -158,7 +158,7 @@ Just make sure that when you run the command:
   **OR**  
 - You specify the **full path** to the `.pem` file in the command.
 
-
+<br></br>
 ### Java and Forge Installation
 Its crucial for minecraft that a java version was installed previously, for accomplish that here are the steps:
 
@@ -175,7 +175,8 @@ mkdir MCServer && cd MCServer
 java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 ```
 
-
+<br></br>
 ### Minecraft forge server installation and configuration
 
+<br></br>
 ### Playing and testing the server
