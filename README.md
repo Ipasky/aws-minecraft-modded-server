@@ -15,8 +15,10 @@ This repository is a guide for everyone who wants to set up their private Minecr
 <br></br>
 
 ## Setting up Guide
-### Game Version and Mod List
+### 1- Game Version and Mod List
 The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available.
+
+https://files.minecraftforge.net/net/minecraftforge/forge/
 
 Here you can see all the mods we are using on our server:  
 ![](https://github.com/Ipasky/aws)
@@ -39,8 +41,9 @@ The resources we’re going to use are:
 > [!NOTE]
 > I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Additionaly I erased all the sensible data for my privacy, dont be surprised if in an image is missing certain data. Thank you.
 
-<br></br>
-### On-Demand vs Spot Instance
+
+
+### 2- On-Demand vs Spot Instance
 First of all, let’s discuss which purchase model you should choose for your instance. You have to decide whether you want to use an **On-Demand** or a **Spot Instance**. The difference between them is the following:
 
 - **On-Demand Instances** are for applications that **cannot be interrupted**. You can run the server 24/7 without any problems. Additionally, On-Demand instances allow you to **start and stop the instance whenever you want**, so you have **full control** over your server and usage.
@@ -72,10 +75,9 @@ This time, we’ve decided to **double the specs** since we’re running **more 
 
 <br></br>
 ### Instance Set-Up
-In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel:  
-![alt text](img/image-3.png)
+In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel, then click on **“Launch Instances”** to begin the configuration process for your server.
 
-Click on **“Launch Instances”** to begin the configuration process for your server.
+![alt text](img/image-3.png)
 
 ---
 
@@ -88,7 +90,8 @@ Start by giving your instance a name — in our case, we’ll name it **MCServer
 Next, select an **AMI**, which is the template for the operating system that will be installed on your server.  
 For our purpose, a clean Linux distribution is enough — we’ll use **Amazon Linux 2023 AMI**.
 
-Make sure the **architecture** is set to **64-bit (x86)**:  
+Make sure the **architecture** is set to **64-bit (x86)**:
+
 ![alt text](img/image-5.png)
 
 ---
@@ -102,7 +105,8 @@ Select the instance type that fits your needs. In our case, we’ll use a **t3.2
 You’ll need a key pair to connect to your server via SSH.
 
 Click on **“Create new key pair”**, give it a name, and choose the **.pem** format (required for MobaXterm or similar SSH tools).  
-Download the key to your computer and **store it safely**, as you’ll need it every time you connect to the instance:  
+Download the key to your computer and **store it safely**, as you’ll need it every time you connect to the instance:
+
 ![alt text](img/image-4.png)
 
 ---
@@ -111,7 +115,8 @@ Download the key to your computer and **store it safely**, as you’ll need it e
 The **security group** acts like a firewall and controls who can access your server.
 
 Go to the **EC2 Dashboard**, scroll to the **“Network & Security”** section on the left, and open **Security Groups**.  
-Click on **“Create security group”**:  
+Click on **“Create security group”**:
+
 ![alt text](img/image-7.png)
 
 You’ll need to add the following **inbound rules**:
@@ -120,6 +125,7 @@ You’ll need to add the following **inbound rules**:
 - **Allow SSH (TCP port 22)** only from your current **public IP address** — this is required to connect to the server via terminal (SSH).  
   You can find your public IP at [whatismyip.com](https://www.whatismyip.com).  
   ![alt text](img/image-8.png)
+If you have a public variable IP like me, take care that maby one day you cant connect to it because of this rule, you only need to acces again and edit the rule with your new public IP.
 
 Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
 
@@ -160,7 +166,7 @@ Just make sure that when you run the command:
 
 <br></br>
 ### Java and Forge Installation
-Its crucial for minecraft that a java version was installed previously, for accomplish that here are the steps:
+Its crucial for minecraft that a Java version was installed previously, we can install Java 17 with that command:
 
 ```bash
 sudo yum install java-17-amazon-corretto -y
@@ -168,12 +174,43 @@ java -version
 ```
 ![alt text](img/image-13.png)
 
+Once Java is installed we need to upload the forge installer into our directory, that with moba is lot easier because you only need to right lick on the left panel inside your directory and select upload, then select the forge file and thats it. 
 
 ![alt text](img/image-12.png)
+
+Doing that with commands are more difficult but here are the commands:
+
 ```bash
 mkdir MCServer && cd MCServer
 java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 ```
+
+
+```bash
+mkdir MCServer && cd MCServer
+java -jar forge-1.20.1-47.2.20-installer.jar --installServer
+```
+
+![alt text](img/image-14.png)
+
+```bash
+sudo nano user_jvm_args.txt
+```
+![alt text](img/image-15.png)
+
+```bash
+sudo chmod +x run.sh
+./run.sh
+sudo nano eula.txt
+eula=true
+```
+![alt text](img/image-16.png)
+
+```bash
+./run.sh
+sudo nano server.properties
+```
+https://minecraft.fandom.com/wiki/Server.properties
 
 <br></br>
 ### Minecraft forge server installation and configuration
