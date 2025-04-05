@@ -91,7 +91,7 @@ Make sure the **architecture** is set to **64-bit (x86)**:
 ![alt text](img/image-5.png)
 
 ### 4.3 - Choose instance type
-Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, disccused previously in the section [] which offers 8 vCPUs and 32 GiB RAM.
+Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, disccused previously in the section [Choosing an Instance Type](#Choosing-an-Instance-Type), which offers 8 vCPUs and 32 GiB RAM.
 
 ### 4.4 - Create a key pair
 You’ll need a key pair to connect to your server via SSH.
@@ -125,8 +125,8 @@ Once saved, return to the instance launch configuration — the new security gro
 ### 4.6 - Configure storage
 Under the **"Configure Storage"** section, change the root volume size from **8 GiB to 20 GiB**.
 
-While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup.  
-If your world is small and you’re only using ~20 mods, 8 GiB may be enough.  
+While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup. If your world is small and you’re only using ~20 mods, 8 GiB may be enough.
+
 However, in our case, the previous server folder reached **10 GiB**, including the map, mods, and other files — and we don’t want to run out of space mid-way through the server.
 
 ![alt text](img/image-6.png)
@@ -136,23 +136,19 @@ Once all this is configured, you can launch your instance and move on to the nex
 
 
 ## 5 - Connect via SSH
-After launching the instance, wait a few minutes for it to finish setting up.  
-Once it’s ready, go to the **Instances** section and you should see your new server running:  
+After launching the instance, wait a few minutes for it to finish setting up. Once it’s ready, go to the **Instances** section and you should see your new server running:
+
 ![alt text](img/image-9.png)
 
-Select the instance and click on the **"Connect"** button in the top bar.  
-In the **SSH client** section, AWS will show you an example command to connect via SSH using the `.pem` key file you downloaded earlier:  
+Select the instance and click on the **"Connect"** button in the top bar. In the **SSH client** section, AWS will show you an example command to connect via SSH using the `.pem` key file you downloaded earlier:
+
 ![alt text](img/image-10.png)
 
-Copy that command and open **MobaXterm** (or any other SSH terminal) on your local machine.  
-Paste the command into the terminal and voilà — you're in!
+Copy that command and open **MobaXterm** (or any other SSH terminal) on your local machine. Paste the command into the terminal and voilà — you're in!
 
 ![alt text](img/image-11.png)
 
-Just make sure that when you run the command:
-- You are **in the same folder as your `.pem` file**,  
-  **OR**  
-- You specify the **full path** to the `.pem` file in the command.
+Just make sure that when you run the command you are **in the same folder as your `.pem` file** or you specify the **full path** to the `.pem` file in the command.
 <br></br>
 
 
