@@ -111,14 +111,15 @@ Click on **“Create security group”**:
 
 You’ll need to add the following **inbound rules**:
 
-- **Allow TCP and UDP traffic** on port **25565** from **any IPv4 address** (`0.0.0.0/0`) — this is the default port for Minecraft.
+**Allow TCP and UDP traffic** on port **25565** from **any IPv4 address** (`0.0.0.0/0`) — this is the default port for Minecraft.
 
-- **Allow SSH (TCP port 22)** only from your current **public IP address** — this is required to connect to the server via terminal (SSH).  
-  You can find your public IP at [whatismyip.com](https://www.whatismyip.com).
+**Allow SSH (TCP port 22)** only from your current **public IP address** — this is required to connect to the server via terminal (SSH).
 
-  ![alt text](img/image-8.png)
+You can find your public IP at [whatismyip.com](https://www.whatismyip.com).
 
-  If you have a public variable IP like me, take care that maby one day you cant connect to it because of this rule, you only need to acces again and edit the rule with your new public IP.
+![alt text](img/image-8.png)
+
+If you have a public variable IP like me, take care that maby one day you cant connect to it because of this rule, you only need to acces again and edit the rule with your new public IP.
 
 Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
 
@@ -148,7 +149,7 @@ Copy that command and open **MobaXterm** (or any other SSH terminal) on your loc
 
 ![alt text](img/image-11.png)
 
-Just make sure that when you run the command you are **in the same folder as your `.pem` file** or you specify the **full path** to the `.pem` file in the command.
+Just make sure that when you run the command you are **in the same folder as your `.pem` file** or you specify the **full path** where is your `.pem` file.
 <br></br>
 
 
@@ -165,25 +166,31 @@ Once Java is installed we need to upload the forge installer into our directory,
 
 ![alt text](img/image-12.png)
 
-Doing that with commands are more difficult but here are the commands:
+Doing that with commands are more difficult but also possible, here are the commands:
 
 ```bash
 mkdir MCServer && cd MCServer
-java -jar forge-1.20.1-47.2.20-installer.jar --installServer
+scp -i C:\Users\YourUser\forge-1.20.1-47.2.20-installer.jar ec2-user@18.234.12.34:/home/ec2-user/MCServer
 ```
 
+The next step is launch the installer with the command:
 
 ```bash
-mkdir MCServer && cd MCServer
 java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 ```
 
 ![alt text](img/image-14.png)
 
+
+Once that is done you should open the user_jvm_args.txt and edit the text in the bottom. Depend on your EC2 server type you need to put more or less, this value is the max ram value the minecraft server can use, if your instance have 8GiB of ram you should put about 5-6GiB for not saturate all the available ram. In our case as we have available 32GiB of ram we put 28GiB (**-Xmx28G**):
+
 ```bash
 sudo nano user_jvm_args.txt
 ```
+
 ![alt text](img/image-15.png)
+
+Then, you have to change the permisions of execution about the **run.sh** file and execute it. This file is the launcher that every time you want to start the server you need to execute it. Additionaly after you run the command **./run.sh** it will apear a lot of new directories and also a **eula.txt** file that you need to edit and change the **eula=false** for an **eula=true**:
 
 ```bash
 sudo chmod +x run.sh
@@ -192,6 +199,8 @@ sudo nano eula.txt
 eula=true
 ```
 ![alt text](img/image-16.png)
+
+Before you run it again first we are going to add all the mods into the **mods** directory. For that you can 
 
 ```bash
 ./run.sh
