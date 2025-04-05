@@ -15,7 +15,7 @@ This repository is a guide for everyone who wants to set up their private Minecr
 <br></br>
 
 ## Setting up Guide
-### 1- Game Version and Mod List
+### 1 - Game Version and Mod List
 The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available.
 
 https://files.minecraftforge.net/net/minecraftforge/forge/
@@ -40,10 +40,9 @@ The resources we’re going to use are:
 
 > [!NOTE]
 > I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Additionaly I erased all the sensible data for my privacy, dont be surprised if in an image is missing certain data. Thank you.
+<br></br>
 
-
-
-### 2- On-Demand vs Spot Instance
+### 2 - On-Demand vs Spot Instance
 First of all, let’s discuss which purchase model you should choose for your instance. You have to decide whether you want to use an **On-Demand** or a **Spot Instance**. The difference between them is the following:
 
 - **On-Demand Instances** are for applications that **cannot be interrupted**. You can run the server 24/7 without any problems. Additionally, On-Demand instances allow you to **start and stop the instance whenever you want**, so you have **full control** over your server and usage.
@@ -58,9 +57,10 @@ In our case, we decided to go with **On-Demand Instances**. Even though Spot Ins
 
 We don’t need the server running all day, especially if no one is playing — that would just waste money on unused time. If you prefer to have the server available 24/7 and want to save money, **Spot Instances** might be a better fit.  
 It really depends on your group’s **play style, schedule, and budget**.
-
 <br></br>
-### Choosing an Instance Type
+
+
+### 3 - Choosing an Instance Type
 Next, you need to decide which instance type best fits your server needs.  
 From my experience, for a server with around **100 mods** and **2–4 players playing at the same time**, a `t3.xlarge` is usually enough.  
 For smaller servers, `t3.large` or even `t3.medium` will work perfectly and are more affordable.
@@ -72,21 +72,18 @@ In our case, we’re going to use a `t3.2xlarge` instance, which provides **8 vC
 This is because in previous servers, we tested a `t3.xlarge` (4 vCPUs and 16 GiB RAM), and we noticed that it wasn’t powerful enough to handle all the mods and the players smoothly.  
 
 This time, we’ve decided to **double the specs** since we’re running **more than 100 mods** and expect **5–10 players**.
-
 <br></br>
-### Instance Set-Up
+
+
+### 4 - Instance Set-Up
 In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel, then click on **“Launch Instances”** to begin the configuration process for your server.
 
 ![alt text](img/image-3.png)
 
----
-
-#### 1. Name your instance
+#### Name your instance
 Start by giving your instance a name — in our case, we’ll name it **MCServer_AWS**.
 
----
-
-#### 2. Choose an AMI (Amazon Machine Image)
+#### Choose an AMI (Amazon Machine Image)
 Next, select an **AMI**, which is the template for the operating system that will be installed on your server.  
 For our purpose, a clean Linux distribution is enough — we’ll use **Amazon Linux 2023 AMI**.
 
@@ -94,14 +91,10 @@ Make sure the **architecture** is set to **64-bit (x86)**:
 
 ![alt text](img/image-5.png)
 
----
-
-#### 3. Choose instance type
+#### Choose instance type
 Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, which offers 8 vCPUs and 32 GiB RAM.
 
----
-
-#### 4. Create a key pair
+#### Create a key pair
 You’ll need a key pair to connect to your server via SSH.
 
 Click on **“Create new key pair”**, give it a name, and choose the **.pem** format (required for MobaXterm or similar SSH tools).  
@@ -109,9 +102,7 @@ Download the key to your computer and **store it safely**, as you’ll need it e
 
 ![alt text](img/image-4.png)
 
----
-
-#### 5. Set up the security group
+#### Set up the security group
 The **security group** acts like a firewall and controls who can access your server.
 
 Go to the **EC2 Dashboard**, scroll to the **“Network & Security”** section on the left, and open **Security Groups**.  
@@ -129,9 +120,7 @@ If you have a public variable IP like me, take care that maby one day you cant c
 
 Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
 
----
-
-#### 6. Configure storage
+#### Configure storage
 Under the **"Configure Storage"** section, change the root volume size from **8 GiB to 20 GiB**.
 
 While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup.  
@@ -140,12 +129,11 @@ However, in our case, the previous server folder reached **10 GiB**, including t
 
 ![alt text](img/image-6.png)
 
----
-
 Once all this is configured, you can launch your instance and move on to the next steps: installing Java, setting up the Minecraft server files, and opening the world!
-
 <br></br>
-### Connect via SSH
+
+
+### 5 - Connect via SSH
 After launching the instance, wait a few minutes for it to finish setting up.  
 Once it’s ready, go to the **Instances** section and you should see your new server running:  
 ![alt text](img/image-9.png)
