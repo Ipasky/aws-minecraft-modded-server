@@ -1,7 +1,7 @@
 # AWS EC2 for setting up a private Minecraft moded (Forge) server
 
 ## Introduction
-This repository is a guide for everyone who wants to set up their private Minecraft Forge server. We are going to use AWS EC2 to host the server.
+This repository is a guide for everyone who wants to set up their private Minecraft Forge server (also for me to remember the, allways forgotten, steps). We are going to use AWS EC2 to host the server.
 
 ## Index
 - [Game version and mod list](#Game-Version-and-Mod-List)
@@ -154,7 +154,7 @@ Just make sure that when you run the command you are **in the same folder as you
 
 
 ## 5 - Java and Forge Installation
-Its crucial for minecraft that a Java version was installed previously, we can install Java 17 with that command:
+Its crucial for Minecraft to have Java installed beforehand. To install Java 17, use the following command:
 
 ```bash
 sudo yum install java-17-amazon-corretto -y
@@ -162,18 +162,21 @@ java -version
 ```
 ![alt text](img/image-13.png)
 
-Once Java is installed we need to upload the forge installer into our directory, that with moba is lot easier because you only need to right lick on the left panel inside your directory and select upload, then select the forge file and thats it. 
+
+Once Java is installed, we need to upload the Forge installer to the server. With MobaXterm, this is very easy because just right-clicking on the left-hand panel inside your server directory, selecting Upload, and choosing the Forge installer file from your local machine, is enought to upload or download any file and folder in your server.
 
 ![alt text](img/image-12.png)
 
-Doing that with commands are more difficult but also possible, here are the commands:
+If you prefer using the terminal, here is how to do it with scp:
 
 ```bash
 mkdir MCServer && cd MCServer
 scp -i C:\Users\YourUser\forge-1.20.1-47.2.20-installer.jar ec2-user@18.234.12.34:/home/ec2-user/MCServer
 ```
+(Be sure to replace the paths and IP address with your actual values.)
 
-The next step is launch the installer with the command:
+
+Next, run the Forge installer to set up the server files:
 
 ```bash
 java -jar forge-1.20.1-47.2.20-installer.jar --installServer
@@ -182,7 +185,11 @@ java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 ![alt text](img/image-14.png)
 
 
-Once that is done you should open the user_jvm_args.txt and edit the text in the bottom. Depend on your EC2 server type you need to put more or less, this value is the max ram value the minecraft server can use, if your instance have 8GiB of ram you should put about 5-6GiB for not saturate all the available ram. In our case as we have available 32GiB of ram we put 28GiB (**-Xmx28G**):
+Then you should open the user_jvm_args.txt and edit the memory settings at the bottom These values define the maximum amount of RAM the server can use. Depending on your EC2 instance type, you may need to adjust these values.
+
+For example, if your instance has 8 GiB of RAM, you should allocate around 5–6 GiB to avoid overloading the system.
+
+In our case, since we have 32 GiB available, we assign 28 GiB:
 
 ```bash
 sudo nano user_jvm_args.txt
@@ -190,17 +197,24 @@ sudo nano user_jvm_args.txt
 
 ![alt text](img/image-15.png)
 
-Then, you have to change the permisions of execution about the **run.sh** file and execute it. This file is the launcher that every time you want to start the server you need to execute it. Additionaly after you run the command **./run.sh** it will apear a lot of new directories and also a **eula.txt** file that you need to edit and change the **eula=false** for an **eula=true**:
+
+Now, change the execution permissions of the **run.sh** file and execute it. This file acts as the launcher — you'll use it every time you want to start the server. 
 
 ```bash
 sudo chmod +x run.sh
 ./run.sh
+```
+
+After launching the server for the first time, several new files and directories will be created, including a file called **eula.txt**. Before the server can fully start you need to accept the EULA by edditing the file and setting:
+
+```bash
 sudo nano eula.txt
 eula=true
 ```
 ![alt text](img/image-16.png)
 
-Before you run it again first we are going to add all the mods into the **mods** directory. For that you can 
+
+Before you run it again first we are going to add all the mods into the **mods** directory. For that you can doit 
 
 ```bash
 ./run.sh
