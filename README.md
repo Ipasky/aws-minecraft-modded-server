@@ -4,13 +4,19 @@
 This repository is a guide for everyone who wants to set up their private Minecraft Forge server (also for me to remember the, allways forgotten, steps). We are going to use AWS EC2 to host the server.
 
 ## Index
-- [Game version and mod list](#Game-Version-and-Mod-List)
-- [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
-- [Choosing an Instance Type](#Choosing-an-Instance-Type)
-- [Instance Set-Up](#Instance-Set-Up)
-- [Connect via SSH](#Connect-via-SSH)
-- [Java and Forge Installation](#Java-and-Forge-Installation)
-- [Minecraft Forge server installation and configuration](#Minecraft-forge-server-installation-and-configuration)
+1 - [Game version and mod list](#1-Game-Version-and-Mod-List)
+2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
+3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
+4 - [Instance Set-Up](#Instance-Set-Up)
+  4.1 - [Name your instance](#Name-your-instance)
+  4.2 - [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
+  4.3 - [Choose an instance type](#Choose-an-instance-type)
+  4.4 - [Create a key pair](#Create-a-key-pair)
+  4.5 - [Set up the security group](#Set-up-the-security-group)
+  4.6 - [Configure the storage](#Configure-the-storage)
+5 - [Connect via SSH](#Connect-via-SSH)
+6 - [Java and Forge Installation](#Java-and-Forge-Installation)
+7 - [Minecraft Forge server installation and configuration](#Minecraft-forge-server-installation-and-configuration)
 - [Playing and testing the server](#Playing-and-testing-the-server)
 <br></br>
 
@@ -90,7 +96,7 @@ Make sure the **architecture** is set to **64-bit (x86)**:
 
 ![alt text](img/image-5.png)
 
-### 4.3 - Choose instance type
+### 4.3 - Choose an instance type
 Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, disccused previously in the section [Choosing an Instance Type](#Choosing-an-Instance-Type), which offers 8 vCPUs and 32 GiB RAM.
 
 ### 4.4 - Create a key pair
@@ -123,7 +129,7 @@ If you have a public variable IP like me, take care that maby one day you cant c
 
 Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
 
-### 4.6 - Configure storage
+### 4.6 - Configure the storage
 Under the **"Configure Storage"** section, change the root volume size from **8 GiB to 20 GiB**.
 
 While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup. If your world is small and you’re only using ~20 mods, 8 GiB may be enough.
@@ -171,7 +177,7 @@ If you prefer using the terminal, here is how to do it with scp:
 
 ```bash
 mkdir MCServer && cd MCServer
-scp -i C:\Users\YourUser\forge-1.20.1-47.2.20-installer.jar ec2-user@18.234.12.34:/home/ec2-user/MCServer
+scp -i C:\Users\YourUser\Downloads\MC_ServerAWS.pem C:\Users\YourUser\forge-1.20.1-47.2.20-installer.jar ec2-user@18.234.12.34:/home/ec2-user/MCServer
 ```
 (Be sure to replace the paths and IP address with your actual values.)
 
@@ -184,12 +190,9 @@ java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 
 ![alt text](img/image-14.png)
 
-
-Then you should open the user_jvm_args.txt and edit the memory settings at the bottom These values define the maximum amount of RAM the server can use. Depending on your EC2 instance type, you may need to adjust these values.
-
-For example, if your instance has 8 GiB of RAM, you should allocate around 5–6 GiB to avoid overloading the system.
-
-In our case, since we have 32 GiB available, we assign 28 GiB:
+## 6 - Server Configuration and Mods
+Once the server files are installed, you should edit the `user_jvm_args.txt` file to adjust the memory settings. These values define the **maximum amount of RAM** the server can use. Depending on your EC2 instance type, you may need to allocate more or less. For example, if your instance has **8 GiB of RAM**, you should assign around **5–6 GiB** to avoid overloading the system.
+In our case, since we have **32 GiB available**, we assign **28 GiB**:
 
 ```bash
 sudo nano user_jvm_args.txt
@@ -198,14 +201,14 @@ sudo nano user_jvm_args.txt
 ![alt text](img/image-15.png)
 
 
-Now, change the execution permissions of the **run.sh** file and execute it. This file acts as the launcher — you'll use it every time you want to start the server. 
+Next, change the execution permissions of the `run.sh` file and execute it. This file acts as the launcher, and you will use it every time you want to start the server: 
 
 ```bash
 sudo chmod +x run.sh
 ./run.sh
 ```
 
-After launching the server for the first time, several new files and directories will be created, including a file called **eula.txt**. Before the server can fully start you need to accept the EULA by edditing the file and setting:
+After launching the server for the first time, several new files and directories will be created, including a file called `eula.txt`. Before the server can fully start you need to accept the EULA by edditing the file and setting:
 
 ```bash
 sudo nano eula.txt
@@ -213,17 +216,63 @@ eula=true
 ```
 ![alt text](img/image-16.png)
 
+Before launching the server again, we need to add all the mods to the mods/ directory. If you’re using MobaXterm, the easiest way is to right-click on the left panel, select “Upload”, and choose all the mods you want to send.
+Alternatively, here is how to do it via terminal:
 
-Before you run it again first we are going to add all the mods into the **mods** directory. For that you can doit 
+```bash
+cd mods
+scp -i C:\Users\YourUser\Downloads\MC_ServerAWS.pem C:\Users\YourUser\Downloads\mods.zip ec2-user@18.234.12.34:/home/ec2-user/MCServer/mods
+unzip mods.zip
+```
+
+![alt text](img/image-17.png)
+
+
+Optionally, you can edit the `server.properties` file to customize server behavior — such as the number of players, world seed, difficulty, game mode, view distance, etc.
+
+Here is our own `server.properties` file in case you want to use the same configuration. If you want to better understand what each setting does, you can check the full documentation here: https://minecraft.fandom.com/wiki/Server.properties
+
+
+Now its time to launch the server, for that you should put the next command in the terminal:
 
 ```bash
 ./run.sh
-sudo nano server.properties
 ```
-https://minecraft.fandom.com/wiki/Server.properties
 
-<br></br>
-### Minecraft forge server installation and configuration
+Wait a few seconds/minutes to be setted the server and then your terminal will be the server terminal, in wich you are going to see all the commands, logs and other information in real time of what's happening in the game.
 
-<br></br>
-### Playing and testing the server
+![alt text](img/image-18.png)
+
+## Minecraft Local Instalation and Settings
+Each player who whants to play in the server has to follow the next steps, thats because eveyone needs to have sincronized the same mods the server has. If you know how to install localy the mods skip this part.
+
+First, same as in the server, you need to verify if you have the java installed. If not, download the latest version: **https://www.java.com/download/**
+
+Second you have to install the Forge file, double click on it and install as client in your **.minecraft** directory (by default is setted).
+
+Now you should open the Minecraft launcher and a Forge version will apear on the installations. Go on top **Instalations** tab and edit the Forge version. Click on the bottom right tab **More Options**, and then into the JVM arguments edit the line that puts -Xmx2G and put a reasonable ram value for your local machine. 
+
+| ![Image 1](img/image-19.png) | ![Image 2](img/image-20.png) |
+|-----------------------------|-----------------------------|
+
+To know how much ram you have in your machine open the task manager and in the top **performance** tab, into memory, you can see how much ram you have. Like the same as the server, if you have 16GiB of ram put about 10GiB for avoiding obverloading the machine. Then save and you can start the game.
+
+![alt text](img/image-21.png)
+
+Now in multiplayer option add a new server and in the IP section put the public IP your server has, for that you must return to AWS EC2 dashboard and check the **Public IPv4 address**. Thats the address that you shoudl share with your friends. Then returning into Minecraft, put it and try to connect to the server.
+
+![alt text](img/image-22.png)
+
+And thats it, you should be inside your amazon hosted server!!! I hope you enjoyed the tutorial. For any doubt please contact with me (ipasauriz@gmail.com).
+
+| ![Image 1](img/image-23.png) | ![Image 2](img/image-24.png) |
+|-----------------------------|-----------------------------|
+
+## Server Usefull Commands
+```bash
+Start the server -> ./run.sh
+Stop the server -> /stop
+Operator mode -> /op yournickname
+Player list -> /list
+All the commands -> /help
+``` 
