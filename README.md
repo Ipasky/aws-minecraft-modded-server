@@ -4,30 +4,33 @@
 This repository is a guide for everyone who wants to set up their private Minecraft Forge server (also for me to remember the, allways forgotten, steps). We are going to use AWS EC2 to host the server.
 
 ## Index
-1 - [Game version and mod list](#1-Game-Version-and-Mod-List)
-2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
-3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
-4 - [Instance Set-Up](#Instance-Set-Up)
-  4.1 - [Name your instance](#Name-your-instance)
-  4.2 - [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
-  4.3 - [Choose an instance type](#Choose-an-instance-type)
-  4.4 - [Create a key pair](#Create-a-key-pair)
-  4.5 - [Set up the security group](#Set-up-the-security-group)
-  4.6 - [Configure the storage](#Configure-the-storage)
-5 - [Connect via SSH](#Connect-via-SSH)
-6 - [Java and Forge Installation](#Java-and-Forge-Installation)
-7 - [Minecraft Forge server installation and configuration](#Minecraft-forge-server-installation-and-configuration)
-- [Playing and testing the server](#Playing-and-testing-the-server)
+- 1 - [Game version and Mod List](#1-Game-Version-and-Mod-List)
+- 2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
+- 3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
+- 4 - [Instance Set-Up](#Instance-Set-Up)
+-   4.1 - [Name your instance](#Name-your-instance)
+-   4.2 - [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
+-   4.3 - [Choose an instance type](#Choose-an-instance-type)
+-   4.4 - [Create a key pair](#Create-a-key-pair)
+-   4.5 - [Set up the security group](#Set-up-the-security-group)
+-   4.6 - [Configure the storage](#Configure-the-storage)
+- 5 - [Connect via SSH](#Connect-via-SSH)
+- 6 - [Java and Forge Installation](#Java-and-Forge-Installation)
+- 7 - [Server Configuration and Mods](#Server-Configuration-and-Mods)
+- 8 - [Minecraft Local Instalation and Settings](#Minecraft-Local-Instalation-and-Settings)
+- 9 - [Connecting to the Server](#Connecting-to-the-Server)
+- 10 - [Server Usefull Commands](#Server-Usefull-Commands)
 <br></br>
 
 ## 1 - Game Version and Mod List
-The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available. Check here for all the Forge versions, and also here is the webpage where we download all the mods (**CurseForge**):
+The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available. 
 
+Check here for all the Forge versions, and also here is the webpage where we download all the mods (**CurseForge**):
 - **[Forge](https://files.minecraftforge.net/net/minecraftforge/forge/)**
 - **[CurseForge - Mods](https://www.curseforge.com/minecraft)**
 
-Here you can see all the mods we are using on our server:  
-![All our mod list](https://github.com/Ipasky/aws)
+Additionaly I'm going to share all the mods that we are using in our latest server:  
+![All our mod list](https://github.com/Ipasky/aws-minecraft-modded-server)
 
 Once you have chosen the version and all the mods, you need to decide your **budget** and how many players will join. This is important because AWS offers various types of virtual machines, and you need to choose one that fits your requirements.  
 If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance. We’ll discuss and compare the different options in the next section.
@@ -158,7 +161,7 @@ Just make sure that when you run the command you are **in the same folder as you
 <br></br>
 
 
-## 5 - Java and Forge Installation
+## 6 - Java and Forge Installation
 Its crucial for Minecraft to have Java installed beforehand. To install Java 17, use the following command:
 
 ```bash
@@ -189,7 +192,7 @@ java -jar forge-1.20.1-47.2.20-installer.jar --installServer
 
 ![alt text](img/image-14.png)
 
-## 6 - Server Configuration and Mods
+## 7 - Server Configuration and Mods
 Once the server files are installed, you should edit the `user_jvm_args.txt` file to adjust the memory settings. These values define the **maximum amount of RAM** the server can use. Depending on your EC2 instance type, you may need to allocate more or less. For example, if your instance has **8 GiB of RAM**, you should assign around **5–6 GiB** to avoid overloading the system.
 In our case, since we have **32 GiB available**, we assign **28 GiB**:
 
@@ -240,7 +243,7 @@ Wait a few seconds or minutes for the server to fully initialize. Once it's up, 
 
 ![alt text](img/image-18.png)
 
-## 7 - Minecraft Local Instalation and Settings
+## 8 - Minecraft Local Instalation and Settings
 Each player who wants to play on the server needs to follow these steps, as everyone must have the same mods as the server. If you already know how to install mods locally, feel free to skip this part.
 
 First, just like on the server, you need to check if you have **Java** installed. If not, you can download the latest version here: **[https://www.java.com/download/](https://www.java.com/download/)**
@@ -262,7 +265,7 @@ To check how much RAM your machine has, open **Task Manager**, go to the **Perfo
 
 Once done, save the changes, and you’re ready to start the game!
 
-## 8 - Connecting to the Server
+## 9 - Connecting to the Server
 Now, in **Minecraft's Multiplayer** section, click **Add Server**. In the **Server Address** section, enter the public IP of your server. 
 
 To get this, go back to the **AWS EC2 Dashboard** and locate the **Public IPv4 Address**. This is the IP address you'll need to share with your friends.
@@ -277,7 +280,7 @@ I hope you enjoyed the tutorial. If you have any questions or need assistance, f
 | ![Image 1](img/image-23.png) | ![Image 2](img/image-24.png) |
 |-----------------------------|-----------------------------|
 
-## Server Usefull Commands
+## 10 - Server Usefull Commands
 ```bash
 Start the server -> ./run.sh
 Stop the server -> /stop
