@@ -21,19 +21,18 @@ This repository is a guide for everyone who wants to set up their private Minecr
 <br></br>
 
 ## 1 - Game Version and Mod List
-The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available.
+The first step is choosing the game version and all the mods you want to use in-game. In our case, we are going to play with **Forge 1.20.1-47.2.20** because it's a stable version and there is a large variety of mods available. Check here for all the Forge versions, and also here is the webpage where we download all the mods (**CurseForge**):
 
-https://files.minecraftforge.net/net/minecraftforge/forge/
+- **[Forge](https://files.minecraftforge.net/net/minecraftforge/forge/)**
+- **[CurseForge - Mods](https://www.curseforge.com/minecraft)**
 
 Here you can see all the mods we are using on our server:  
-![](https://github.com/Ipasky/aws)
+![All our mod list](https://github.com/Ipasky/aws)
 
 Once you have chosen the version and all the mods, you need to decide your **budget** and how many players will join. This is important because AWS offers various types of virtual machines, and you need to choose one that fits your requirements.  
-If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance.  
-We’ll discuss and compare the different options in the next section.
+If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance. We’ll discuss and compare the different options in the next section.
 
-AWS offers an incredible number of services. For this project, we are going to use **EC2 instances** to host our Minecraft server.  
-EC2 has a whole ecosystem around it, starting with the dashboard: 
+AWS offers an incredible number of services. For this project, we are going to use **EC2 instances** to host our Minecraft server. EC2 has a whole ecosystem around it, starting with the dashboard: 
 
 ![alt text](img/image.png)
 
@@ -228,42 +227,52 @@ unzip mods.zip
 ![alt text](img/image-17.png)
 
 
-Optionally, you can edit the `server.properties` file to customize server behavior — such as the number of players, world seed, difficulty, game mode, view distance, etc.
-
-Here is our own `server.properties` file in case you want to use the same configuration. If you want to better understand what each setting does, you can check the full documentation here: https://minecraft.fandom.com/wiki/Server.properties
+Optionally, you can edit the `server.properties` file to customize server behavior — such as the number of players, world seed, difficulty, game mode, view distance, etc. For a better understanding, you can check the full documentation here: **[https://minecraft.fandom.com/wiki/Server.properties](https://minecraft.fandom.com/wiki/Server.properties)**
 
 
-Now its time to launch the server, for that you should put the next command in the terminal:
+Now it’s time to start the server for real. Use the following command:
 
 ```bash
 ./run.sh
 ```
 
-Wait a few seconds/minutes to be setted the server and then your terminal will be the server terminal, in wich you are going to see all the commands, logs and other information in real time of what's happening in the game.
+Wait a few seconds or minutes for the server to fully initialize. Once it's up, your terminal becomes the live console, where you’ll see commands, logs, chat messages, player activity, and everything that happens in the game in real time.
 
 ![alt text](img/image-18.png)
 
-## Minecraft Local Instalation and Settings
-Each player who whants to play in the server has to follow the next steps, thats because eveyone needs to have sincronized the same mods the server has. If you know how to install localy the mods skip this part.
+## 7 - Minecraft Local Instalation and Settings
+Each player who wants to play on the server needs to follow these steps, as everyone must have the same mods as the server. If you already know how to install mods locally, feel free to skip this part.
 
-First, same as in the server, you need to verify if you have the java installed. If not, download the latest version: **https://www.java.com/download/**
+First, just like on the server, you need to check if you have **Java** installed. If not, you can download the latest version here: **[https://www.java.com/download/](https://www.java.com/download/)**
 
-Second you have to install the Forge file, double click on it and install as client in your **.minecraft** directory (by default is setted).
+Next, install **Forge**. Double-click on the Forge installer and select **Install Client** (it will automatically set the default `.minecraft` directory).
 
-Now you should open the Minecraft launcher and a Forge version will apear on the installations. Go on top **Instalations** tab and edit the Forge version. Click on the bottom right tab **More Options**, and then into the JVM arguments edit the line that puts -Xmx2G and put a reasonable ram value for your local machine. 
+
+
+Once Forge is installed, open the **Minecraft launcher**. You will see a new **Forge version** under the "Installations" tab. 
+Click on the "Installations" tab at the top, and then **edit** the Forge version. Click on **More Options**, and in the **JVM Arguments** section, replace `-Xmx2G` with a **reasonable RAM value** for your local machine.
 
 | ![Image 1](img/image-19.png) | ![Image 2](img/image-20.png) |
 |-----------------------------|-----------------------------|
 
-To know how much ram you have in your machine open the task manager and in the top **performance** tab, into memory, you can see how much ram you have. Like the same as the server, if you have 16GiB of ram put about 10GiB for avoiding obverloading the machine. Then save and you can start the game.
+
+To check how much RAM your machine has, open **Task Manager**, go to the **Performance** tab, and check the **Memory** section. Just like on the server, if you have **16 GiB of RAM**, allocate around **10 GiB** to avoid overloading your machine.
 
 ![alt text](img/image-21.png)
 
-Now in multiplayer option add a new server and in the IP section put the public IP your server has, for that you must return to AWS EC2 dashboard and check the **Public IPv4 address**. Thats the address that you shoudl share with your friends. Then returning into Minecraft, put it and try to connect to the server.
+Once done, save the changes, and you’re ready to start the game!
+
+## 8 - Connecting to the Server
+Now, in **Minecraft's Multiplayer** section, click **Add Server**. In the **Server Address** section, enter the public IP of your server. 
+
+To get this, go back to the **AWS EC2 Dashboard** and locate the **Public IPv4 Address**. This is the IP address you'll need to share with your friends.
 
 ![alt text](img/image-22.png)
 
-And thats it, you should be inside your amazon hosted server!!! I hope you enjoyed the tutorial. For any doubt please contact with me (ipasauriz@gmail.com).
+Once you have the IP, go back to **Minecraft**, enter it, and try to connect to the server.
+
+And that’s it! You should now be connected to your **Amazon-hosted Minecraft server**! 
+I hope you enjoyed the tutorial. If you have any questions or need assistance, feel free to contact me (ipasauriz@gmail.com).
 
 | ![Image 1](img/image-23.png) | ![Image 2](img/image-24.png) |
 |-----------------------------|-----------------------------|
