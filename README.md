@@ -8,7 +8,7 @@ This repository is a guide for everyone who wants to set up their private Minecr
 2. [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
 3. [Choosing an Instance Type](#Choosing-an-Instance-Type)
 4. [Instance Set-Up](#Instance-Set-Up)
-  - 4.1 [Name your instance](#Name-your-instance)
+  4.1. [Name your instance](#Name-your-instance)
   - 4.2 [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
   - 4.3 [Choose an instance type](#Choose-an-instance-type)
   - 4.4 [Create a key pair](#Create-a-key-pair)
