@@ -1,7 +1,9 @@
-# AWS EC2 for setting up a private Minecraft moded (Forge) server
+# Guide to setting up a private Minecraft Forge server on AWS EC2.
 
 ## Introduction
-This repository is a guide for everyone who wants to set up their private Minecraft Forge server (also for me to remember the, allways forgotten, steps). We are going to use AWS EC2 to host the server.
+This repository serves as a guide for anyone looking to set up their own private Minecraft Forge server, using AWS EC2 for hosting. It's also a reference for me to remember the often-forgotten steps in the process.
+
+In this guide, we’ll walk through all the necessary steps to get your server running smoothly, from setting up Java and Forge to configuring the server and installing mods. Whether you're new to hosting Minecraft servers or just need a refresher, this guide will help you get your server up and running quickly.
 
 ## Index
 - 1 - [Game version and Mod List](#1-Game-Version-and-Mod-List)
