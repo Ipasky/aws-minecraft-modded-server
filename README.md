@@ -31,7 +31,7 @@ Check here for all the Forge versions, and also here is the webpage where we dow
 - **[CurseForge - Mods](https://www.curseforge.com/minecraft)**
 
 Additionaly I'm going to share all the mods that we are using in our latest server:  
-![Our mod list](modlist.txt)
+**[Our mod list](modlist.txt)**
 
 Once you have chosen the version and all the mods, you need to decide your **budget** and how many players will join. This is important because AWS offers various types of virtual machines, and you need to choose one that fits your requirements.  
 If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance. We’ll discuss and compare the different options in the next section.
