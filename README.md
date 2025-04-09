@@ -5,16 +5,18 @@ This repository serves as a guide for anyone looking to set up their own private
 
 In this guide, we’ll walk through all the necessary steps to get your server running smoothly, from setting up Java and Forge to configuring the server and installing mods. Whether you're new to hosting Minecraft servers or just need a refresher, this guide will help you get your server up and running quickly.
 
+![alt text](banner.png)
+
 ## Index
 - 1  - [Game version and Mod List](#1---Game-Version-and-Mod-List)
 - 2  - [On-Demand vs Spot Instance](#2---On-Demand-vs-Spot-Instance)
 - 3  - [Choosing an Instance Type](#3---Choosing-an-Instance-Type)
 - 4  - [Instance Set-Up](#4---Instance-Set-Up)
--    4.1 - [Choose an AMI](#4.1---Choose-an-AMI-(Amazon-Machine-Image))
--    4.2 - [Choose an instance type](#4.2---Choose-an-instance-type)
--    4.3 - [Create a key pair](#4.3---Create-a-key-pair)
--    4.4 - [Set up the security group](#4.4---Set-up-the-security-group)
--    4.5 - [Configure the storage](#4.5---Configure-the-storage)
+-    4.1 - [Choose an AMI](##4.1---Choose-an-AMI-(Amazon-Machine-Image))
+-    4.2 - [Choose an instance type](##4.2---Choose-an-instance-type)
+-    4.3 - [Create a key pair](##4.3---Create-a-key-pair)
+-    4.4 - [Set up the security group](##4.4---Set-up-the-security-group)
+-    4.5 - [Configure the storage](##4.5---Configure-the-storage)
 - 5  - [Connect via SSH](#5---Connect-via-SSH)
 - 6  - [Java and Forge Installation](#6---Java-and-Forge-Installation)
 - 7  - [Server Configuration and Mods](#7---Server-Configuration-and-Mods)
@@ -30,8 +32,7 @@ Check here for all the Forge versions, and also here is the webpage where we dow
 - **[Forge](https://files.minecraftforge.net/net/minecraftforge/forge/)**
 - **[CurseForge - Mods](https://www.curseforge.com/minecraft)**
 
-Additionaly I'm going to share all the mods that we are using in our latest server:  
-**[Our mod list](modlist.txt)**
+Additionaly I'm going to share all the mods that we are using in our latest server: **[Our mod list](modlist.txt)**
 
 Once you have chosen the version and all the mods, you need to decide your **budget** and how many players will join. This is important because AWS offers various types of virtual machines, and you need to choose one that fits your requirements.  
 If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance. We’ll discuss and compare the different options in the next section.
@@ -48,7 +49,6 @@ The resources we’re going to use are:
 
 > [!NOTE]
 > I'm not an expert in AWS ecosystem, if i did wrong one step or i have an incorrect configuration please contact with me (ipasauriz@gmail.com) and I will correct the mistake. Additionaly I erased all the sensible data for my privacy, dont be surprised if in an image is missing certain data. Thank you.
-<br></br>
 
 ## 2 - On-Demand vs Spot Instance
 First of all, let’s discuss which purchase model you should choose for your instance. You have to decide whether you want to use an **On-Demand** or a **Spot Instance**. The difference between them is the following:
