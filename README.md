@@ -6,22 +6,21 @@ This repository serves as a guide for anyone looking to set up their own private
 In this guide, we’ll walk through all the necessary steps to get your server running smoothly, from setting up Java and Forge to configuring the server and installing mods. Whether you're new to hosting Minecraft servers or just need a refresher, this guide will help you get your server up and running quickly.
 
 ## Index
-- 1 - [Game version and Mod List](#1---Game-Version-and-Mod-List)
-- 2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
-- 3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
-- 4 - [Instance Set-Up](#Instance-Set-Up)
--    4.1 - [Name your instance](#Name-your-instance)
--    4.2 - [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
--    4.3 - [Choose an instance type](#Choose-an-instance-type)
--    4.4 - [Create a key pair](#Create-a-key-pair)
--    4.5 - [Set up the security group](#Set-up-the-security-group)
--    4.6 - [Configure the storage](#Configure-the-storage)
-- 5 - [Connect via SSH](#Connect-via-SSH)
-- 6 - [Java and Forge Installation](#Java-and-Forge-Installation)
-- 7 - [Server Configuration and Mods](#Server-Configuration-and-Mods)
-- 8 - [Minecraft Local Instalation and Settings](#Minecraft-Local-Instalation-and-Settings)
-- 9 - [Connecting to the Server](#Connecting-to-the-Server)
-- 10 - [Server Usefull Commands](#Server-Usefull-Commands)
+- 1  - [Game version and Mod List](#1---Game-Version-and-Mod-List)
+- 2  - [On-Demand vs Spot Instance](#2---On-Demand-vs-Spot-Instance)
+- 3  - [Choosing an Instance Type](#3---Choosing-an-Instance-Type)
+- 4  - [Instance Set-Up](#4---Instance-Set-Up)
+-    4.1 - [Choose an AMI](#4.1---Choose-an-AMI-(Amazon-Machine-Image))
+-    4.2 - [Choose an instance type](#4.2---Choose-an-instance-type)
+-    4.3 - [Create a key pair](#4.3---Create-a-key-pair)
+-    4.4 - [Set up the security group](#4.4---Set-up-the-security-group)
+-    4.5 - [Configure the storage](#4.5---Configure-the-storage)
+- 5  - [Connect via SSH](#5---Connect-via-SSH)
+- 6  - [Java and Forge Installation](#6---Java-and-Forge-Installation)
+- 7  - [Server Configuration and Mods](#7---Server-Configuration-and-Mods)
+- 8  - [Local Forge Instalation and Settings](#8---Local-Forge-Instalation-and-Settings)
+- 9  - [Minecraft Server Address](#9---Minecraft-Server-Address)
+- 10 - [Server Usefull Commands](#10---Server-Usefull-Commands)
 <br></br>
 
 ## 1 - Game Version and Mod List
@@ -32,7 +31,7 @@ Check here for all the Forge versions, and also here is the webpage where we dow
 - **[CurseForge - Mods](https://www.curseforge.com/minecraft)**
 
 Additionaly I'm going to share all the mods that we are using in our latest server:  
-![All our mod list](https://github.com/Ipasky/aws-minecraft-modded-server)
+![Our mod list](https://github.com/Ipasky/aws-minecraft-modded-server/modlist.txt)
 
 Once you have chosen the version and all the mods, you need to decide your **budget** and how many players will join. This is important because AWS offers various types of virtual machines, and you need to choose one that fits your requirements.  
 If you're planning to play with 200 mods and multiple players, you should pick a more powerful instance. We’ll discuss and compare the different options in the next section.
@@ -87,12 +86,9 @@ This time, we’ve decided to **double the specs** since we’re running **more 
 ## 4 - Instance Set-Up
 In the **EC2 Dashboard**, go to the **Instances** section on the left-side panel, then click on **“Launch Instances”** to begin the configuration process for your server.
 
-<!-- ![alt text](img/image-3.png) -->
-
-### 4.1 - Name your instance
 Start by giving your instance a name — in our case, we’ll name it **MCServer_AWS**.
 
-### 4.2 - Choose an AMI (Amazon Machine Image)
+### 4.1 - Choose an AMI (Amazon Machine Image)
 Next, select an **AMI**, which is the template for the operating system that will be installed on your server.  
 For our purpose, a clean Linux distribution is enough — we’ll use **Amazon Linux 2023 AMI**.
 
@@ -100,10 +96,10 @@ Make sure the **architecture** is set to **64-bit (x86)**:
 
 ![alt text](img/image-5.png)
 
-### 4.3 - Choose an instance type
+### 4.2 - Choose an instance type
 Select the instance type that fits your needs. In our case, we’ll use a **t3.2xlarge**, disccused previously in the section [Choosing an Instance Type](#Choosing-an-Instance-Type), which offers 8 vCPUs and 32 GiB RAM.
 
-### 4.4 - Create a key pair
+### 4.3 - Create a key pair
 You’ll need a key pair to connect to your server via SSH.
 
 Click on **“Create new key pair”**, give it a name, and choose the **.pem** format (required for MobaXterm or similar SSH tools).  
@@ -111,7 +107,7 @@ Download the key to your computer and **store it safely**, as you’ll need it e
 
 ![alt text](img/image-4.png)
 
-### 4.5 - Set up the security group
+### 4.4 - Set up the security group
 The **security group** acts like a firewall and controls who can access your server.
 
 Go to the **EC2 Dashboard**, scroll to the **“Network & Security”** section on the left, and open **Security Groups**.  
@@ -133,7 +129,7 @@ If you have a public variable IP like me, take care that maby one day you cant c
 
 Once saved, return to the instance launch configuration — the new security group should appear in the list of available options.
 
-### 4.6 - Configure the storage
+### 4.5 - Configure the storage
 Under the **"Configure Storage"** section, change the root volume size from **8 GiB to 20 GiB**.
 
 While this increases the cost slightly (around **$2/month**), it’s important for a proper server setup. If your world is small and you’re only using ~20 mods, 8 GiB may be enough.
@@ -245,7 +241,7 @@ Wait a few seconds or minutes for the server to fully initialize. Once it's up, 
 
 ![alt text](img/image-18.png)
 
-## 8 - Minecraft Local Instalation and Settings
+## 8 - Local Forge Instalation and Settings
 Each player who wants to play on the server needs to follow these steps, as everyone must have the same mods as the server. If you already know how to install mods locally, feel free to skip this part.
 
 First, just like on the server, you need to check if you have **Java** installed. If not, you can download the latest version here: **[https://www.java.com/download/](https://www.java.com/download/)**
@@ -267,7 +263,7 @@ To check how much RAM your machine has, open **Task Manager**, go to the **Perfo
 
 Once done, save the changes, and you’re ready to start the game!
 
-## 9 - Connecting to the Server
+## 9 - Minecraft Server Address
 Now, in **Minecraft's Multiplayer** section, click **Add Server**. In the **Server Address** section, enter the public IP of your server. 
 
 To get this, go back to the **AWS EC2 Dashboard** and locate the **Public IPv4 Address**. This is the IP address you'll need to share with your friends.
