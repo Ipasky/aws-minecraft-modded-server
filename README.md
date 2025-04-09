@@ -4,22 +4,22 @@
 This repository is a guide for everyone who wants to set up their private Minecraft Forge server (also for me to remember the, allways forgotten, steps). We are going to use AWS EC2 to host the server.
 
 ## Index
-- 1 - [Game version and Mod List](#1-Game-Version-and-Mod-List)
-- 2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
-- 3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
-- 4 - [Instance Set-Up](#Instance-Set-Up)
--   4.1 - [Name your instance](#Name-your-instance)
--   4.2 - [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
--   4.3 - [Choose an instance type](#Choose-an-instance-type)
--   4.4 - [Create a key pair](#Create-a-key-pair)
--   4.5 - [Set up the security group](#Set-up-the-security-group)
--   4.6 - [Configure the storage](#Configure-the-storage)
-- 5 - [Connect via SSH](#Connect-via-SSH)
-- 6 - [Java and Forge Installation](#Java-and-Forge-Installation)
-- 7 - [Server Configuration and Mods](#Server-Configuration-and-Mods)
-- 8 - [Minecraft Local Instalation and Settings](#Minecraft-Local-Instalation-and-Settings)
-- 9 - [Connecting to the Server](#Connecting-to-the-Server)
-- 10 - [Server Usefull Commands](#Server-Usefull-Commands)
+1. [Game version and Mod List](#1-Game-Version-and-Mod-List)
+2. [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
+3. [Choosing an Instance Type](#Choosing-an-Instance-Type)
+4. [Instance Set-Up](#Instance-Set-Up)
+  - 4.1 [Name your instance](#Name-your-instance)
+  - 4.2 [Choose an AMI](#Choose-an-AMI-(Amazon-Machine-Image))
+  - 4.3 [Choose an instance type](#Choose-an-instance-type)
+  - 4.4 [Create a key pair](#Create-a-key-pair)
+  - 4.5 [Set up the security group](#Set-up-the-security-group)
+  - 4.6 [Configure the storage](#Configure-the-storage)
+5. [Connect via SSH](#Connect-via-SSH)
+6. [Java and Forge Installation](#Java-and-Forge-Installation)
+7. [Server Configuration and Mods](#Server-Configuration-and-Mods)
+8. [Minecraft Local Instalation and Settings](#Minecraft-Local-Instalation-and-Settings)
+9. [Connecting to the Server](#Connecting-to-the-Server)
+10. [Server Usefull Commands](#Server-Usefull-Commands)
 <br></br>
 
 ## 1 - Game Version and Mod List
