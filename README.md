@@ -6,7 +6,7 @@ This repository serves as a guide for anyone looking to set up their own private
 In this guide, we’ll walk through all the necessary steps to get your server running smoothly, from setting up Java and Forge to configuring the server and installing mods. Whether you're new to hosting Minecraft servers or just need a refresher, this guide will help you get your server up and running quickly.
 
 ## Index
-- 1 - [Game version and Mod List](#1-Game-Version-and-Mod-List)
+- 1 - [Game version and Mod List](#1---Game-Version-and-Mod-List)
 - 2 - [On-Demand vs Spot Instance](#On-Demand-vs-Spot-Instance)
 - 3 - [Choosing an Instance Type](#Choosing-an-Instance-Type)
 - 4 - [Instance Set-Up](#Instance-Set-Up)
